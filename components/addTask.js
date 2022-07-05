@@ -10,6 +10,7 @@ export const addTask = (evento) => {
     //adicion fecha
     const value = input.value;
     const date = calendar.value;
+    //formato fecha
     const dateFormat = moment(date).format('DD/MM/YYYY'); 
     console.log(dateFormat);
 
@@ -28,54 +29,47 @@ export const addTask = (evento) => {
         dateFormat
       };
 
-    //sobre localStorage    
+    //cargando del storage al objeto taskList para pasarlo a taskObj
     const taskList = JSON.parse(localStorage.getItem("task")) || [];
-    console.log(taskList);
-  
-    taskList.push(taskObj);
+          taskList.push(taskObj);
   
     //tomamos la sesion, ambos campos debes ser text
     localStorage.setItem('task', JSON.stringify(taskList));
 
-    
-
     const task = createTask(taskObj);
     list.appendChild(task);
-  
-  }
+    };
+
+
   //para cargar las tareas antes de sobreescribirlas 
   //en localSession
   // lo movemos para hacer persistenica del contenido
   //const taskList = [];
   
-  const createTask = ({value,dateFormat}) => {
+export const createTask = ({value,dateFormat}) => {
        
-    const task = document.createElement('li');
-    task.classList.add('card');
+  const task = document.createElement('li');
+        task.classList.add('card');
 
-    //backticks
-    const taskContent = document.createElement('div');
+  //backticks
+  const taskContent = document.createElement('div');
   
-    
-
-
-  
-    const titleTask = document.createElement('span');
-    titleTask.classList.add('task');
-    titleTask.innerText = value;
-    taskContent.appendChild(checkComplete());
-    taskContent.appendChild(titleTask);
-    // task.innerHTML = content;
+ 
+  const titleTask = document.createElement('span');
+        titleTask.classList.add('task');
+        titleTask.innerText = value;
+        taskContent.appendChild(checkComplete());
+        taskContent.appendChild(titleTask);
+        // task.innerHTML = content;
   
     //adicionando la fecha
-    const dateElement = document.createElement('span');
-    dateElement.innerHTML = dateFormat;
+  const dateElement = document.createElement('span');
+        dateElement.innerHTML = dateFormat;
   
-    task.appendChild(taskContent);
-    //add fecha
-    task.appendChild(dateElement);
-  
-    task.appendChild(deleteIcon());
+       task.appendChild(taskContent);
+       //add fecha
+       task.appendChild(dateElement);
+       task.appendChild(deleteIcon());
     return task;
   };
   
