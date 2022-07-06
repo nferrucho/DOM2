@@ -1,6 +1,6 @@
 import checkComplete from './checkComplete.js';
 import deleteIcon from './deleteIcon.js';
-import { displayTasks } from './readTask.js'
+import { displayTasks } from './readTask.js';
 
 export const addTask = (evento) => {
   evento.preventDefault();
@@ -87,7 +87,7 @@ export const createTask = ({ value, dateFormat, complete, id }) => {
   const titleTask = document.createElement('span');
   titleTask.classList.add('task');
   titleTask.innerText = value;
-  taskContent.appendChild(checkComplete());
+  taskContent.appendChild(check);
   taskContent.appendChild(titleTask);
   // task.innerHTML = content;
 
