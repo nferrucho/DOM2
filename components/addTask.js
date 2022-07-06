@@ -16,9 +16,11 @@ export const addTask = (evento) => {
 
     
 
-    // almacenamos la informacion para hacerla persistente en un array   
-    //json.parse -> lo text a json
-    
+    // validando que no cargue tareas vaias de fecha o texto
+    if (value=== "" || date === ""){
+        return;
+        console.log(" tarea limpia");
+    }
     //iniciando entradas
     input.value = '';
     calendar.value = '';
@@ -29,6 +31,9 @@ export const addTask = (evento) => {
         dateFormat
       };
 
+    // almacenamos la informacion para hacerla persistente en un array   
+    //json.parse -> lo text a json
+    
     //cargando del storage al objeto taskList para pasarlo a taskObj
     const taskList = JSON.parse(localStorage.getItem("task")) || [];
           taskList.push(taskObj);
