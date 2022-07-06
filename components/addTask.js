@@ -1,5 +1,6 @@
 import checkComplete from './checkComplete.js';
 import deleteIcon from './deleteIcon.js';
+import  {displayTasks} from "./readTask.js"
 
 export const addTask = (evento) => {
     evento.preventDefault();
@@ -17,7 +18,7 @@ export const addTask = (evento) => {
     
 
     // validando que no cargue tareas vaias de fecha o texto
-    if (value=== "" || date === ""){
+    if (value=== '' || date === ''){
         return;
         console.log(" tarea limpia");
     }
@@ -28,8 +29,11 @@ export const addTask = (evento) => {
     //atrapando valores de la tarea
     const taskObj = {
         value,
-        dateFormat
+        dateFormat,
       };
+
+    //iniciando la lista para evitar repeticiones en la carga
+    list.innerHTML = '';
 
     // almacenamos la informacion para hacerla persistente en un array   
     //json.parse -> lo text a json
@@ -39,10 +43,12 @@ export const addTask = (evento) => {
           taskList.push(taskObj);
   
     //tomamos la sesion, ambos campos debes ser text
-    localStorage.setItem('task', JSON.stringify(taskList));
+    localStorage.setItem('tasks', JSON.stringify(taskList));
 
-    const task = createTask(taskObj);
-    list.appendChild(task);
+//usando la funcion readTask
+    displayTasks();
+//    const task = createTask(taskObj);
+//    list.appendChild(task);
     };
 
 

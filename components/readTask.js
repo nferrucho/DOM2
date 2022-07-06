@@ -1,18 +1,42 @@
-import {createTask} from "./addTask.js"
-//porque es una default
-import dateElement from "./dateElement.js";
+import { createTask } from './addTask.js';
+import { uniqueDates } from '../services/date.js';
+import dateElement from './dateElement.js';
 
-export const readTask = () =>{
+
+
+export const displayTasks = () =>{
     //tomando datos del li
-    const list = document.querySelector("[data-list");
-    console.log(list);
-    const taskList = JSON.parse(localStorage.getItem("task")) || [];
-    console.log(dateElement(Date(),"DD/MM/YYYY"));
-    //adicionando elemento del buffer a la lista
-    taskList.forEach ((task) =>{
-        // generando el filtro por fecha
-        list.appendChild(dateElement(task.dateFormat));
-        list.appendChild(createTask(task));
+    const list = document.querySelector('[data-list]');
+    
+    const tasksList = JSON.parse(localStorage.getItem('tasks')) || [];
 
-    });
-}
+    //pasando valores a uniqueDates
+    const dates = uniqueDates(tasksList);
+    
+    dates.forEach ((date) =>{
+
+        const dateMoment = moment(date, 'DD/MM/YYYY');
+        list.appendChild(dateElement(date));
+        
+        tasksList.forEach ((task) =>{
+            const taskDate = moment(task.dateFormat, 'DD/MM/YYYY');
+
+            const diff = dateMoment.diff(taskDate);
+            if (diff === 0) { 
+                // generando el filtro por fecha
+                list.appendChild(createTask(task));
+            }
+        });
+        });
+    
+
+    //console.log(dateElement(Date(),"DD/MM/YYYY"));
+    //adicionando elemento del buffer a la lista
+//    taskList.forEach ((task) =>{
+        // generando el filtro por fecha
+//        list.appendChild(dateElement(task.dateFormat));
+//        list.appendChild(createTask(task));
+
+//    });
+
+};
