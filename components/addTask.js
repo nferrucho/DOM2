@@ -26,10 +26,16 @@ export const addTask = (evento) => {
   input.value = '';
   calendar.value = '';
 
+  // para validar tareas terminadas
+  const complete = false;
+
   //atrapando valores de la tarea
+  //id es consecutivo de la tarea
   const taskObj = {
     value,
     dateFormat,
+    complete,
+    id:uuid.v4()
   };
 
   //iniciando la lista para evitar repeticiones en la carga
@@ -57,7 +63,7 @@ export const addTask = (evento) => {
 // lo movemos para hacer persistenica del contenido
 //const taskList = [];
 
-export const createTask = ({ value, dateFormat }) => {
+export const createTask = ({ value, dateFormat, complete, id }) => {
 
   const task = document.createElement('li');
   task.classList.add('card');
@@ -65,6 +71,18 @@ export const createTask = ({ value, dateFormat }) => {
   //backticks
   const taskContent = document.createElement('div');
 
+  console.log(complete);
+  const check = checkComplete(id);
+
+//asignacion del estilo para la tarea
+  if (complete){
+    console.log('completada');
+    check.classList.toggle('fas');
+    check.classList.toggle('completeIcon');
+    check.classList.toggle('far');
+
+
+  }
 
   const titleTask = document.createElement('span');
   titleTask.classList.add('task');
@@ -80,6 +98,6 @@ export const createTask = ({ value, dateFormat }) => {
   task.appendChild(taskContent);
   //add fecha
   task.appendChild(dateElement);
-  task.appendChild(deleteIcon());
+  task.appendChild(deleteIcon(id));
   return task;
 };

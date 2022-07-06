@@ -5,6 +5,8 @@ import dateElement from './dateElement.js';
 
 
 export const displayTasks = () => {
+    //identificador unico de tarea
+    //console.log(uuid.v4());
     //tomando datos del li
     const list = document.querySelector('[data-list]');
 
